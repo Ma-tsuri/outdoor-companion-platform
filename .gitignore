@@ -1,0 +1,7 @@
+outdoor-server/target/
+outdoor-web/node_modules/
+outdoor-web/dist/
+.idea/
+.vscode/
+*.log
+.DS_Store
