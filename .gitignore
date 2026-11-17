@@ -1,4 +1,5 @@
 outdoor-server/target/
+outdoor-server/src/main/resources/application-local.yml
 outdoor-web/node_modules/
 outdoor-web/dist/
 .idea/

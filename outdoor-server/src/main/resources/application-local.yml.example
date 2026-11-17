@@ -1,0 +1,9 @@
+# 复制本文件为 application-local.yml 并填入本机真实配置（application-local.yml 不会被提交）
+spring:
+  datasource:
+    username: root
+    password: 你的数据库密码
+
+jwt:
+  # 至少 32 位，自定义
+  secret: 自定义的随机字符串-至少32位-不要用示例值

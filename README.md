@@ -56,16 +56,36 @@ mysql -uroot -p outdoor_db < docs/data.sql
 
 如果使用 Navicat / DataGrip，也可以直接打开并运行 `docs/schema.sql`、`docs/data.sql`。
 
-### 2. 修改数据库连接
+### 2. 配置数据库连接（密钥不进版本库）
 
-编辑 `outdoor-server/src/main/resources/application.yml`，将用户名和密码改为本机配置：
+敏感配置已全部改为环境变量占位，仓库里**不含**真实密码：
 
 ```yaml
+# application.yml（已提交）
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/outdoor_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 你的密码
+    url: ${DB_URL:jdbc:mysql://localhost:3306/outdoor_db?...}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+jwt:
+  secret: ${JWT_SECRET:...}
+```
+
+本地开发推荐用 profile 文件，不影响别人、也不会被提交：
+
+```bash
+cd outdoor-server/src/main/resources
+copy application-local.yml.example application-local.yml   # Windows
+cp    application-local.yml.example application-local.yml  # macOS/Linux
+```
+
+然后把 `application-local.yml` 里的数据库密码、JWT 密钥改成你自己的（该文件已被 `.gitignore` 忽略）。
+
+也可以直接用环境变量启动：
+
+```bash
+set DB_PASSWORD=你的密码
+set JWT_SECRET=至少32位的随机字符串
 ```
 
 ### 3. 启动后端
